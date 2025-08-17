@@ -495,20 +495,20 @@ static void kscan_ec_matrix_read(const struct device *dev) {
 
             bool prev = (data->matrix_state[s] & BIT(r)) != 0;
             uint16_t buf = read_raw_matrix_state(dev, s, r);
-            LOG_DBG("raw reading: %d, %d, %u\n", s, r, buf);  // debug
+            LOG_DBG("raw reading: %d, %d, %d\n", s, r, buf);  // debug
 
             buf = normalize(buf, calibration->avg_low, calibration->avg_high);
-            LOG_DBG("normalized reading: %d, %d, %u\n", s, r, buf);   // debug
+            LOG_DBG("normalized reading: %d, %d, %d\n", s, r, buf);   // debug
 
             uint32_t range = calibration->avg_high - calibration->avg_low;
             uint16_t press_limit_raw =
                 calibration->avg_high -
                 (uint16_t)(MAX((range * cfg->trigger_percentage) / 100, calibration->noise));
-            LOG_DBG("press_limit_raw: %d, %d, %u\n", s, r, press_limit_raw);  // debug
+            LOG_DBG("press_limit_raw: %d, %d, %d\n", s, r, press_limit_raw);  // debug
             uint16_t hys_buffer = MAX(range / 8, calibration->noise);
             uint16_t press_limit =
                 normalize(press_limit_raw, calibration->avg_low, calibration->avg_high);
-            LOG_DBG("press_limit: %d, %d, %u\n", s, r, press_limit);   // debug
+            LOG_DBG("press_limit: %d, %d, %d\n", s, r, press_limit);   // debug
             uint16_t release_limit = normalize(press_limit_raw - hys_buffer, calibration->avg_low,
                                                calibration->avg_high);
 
